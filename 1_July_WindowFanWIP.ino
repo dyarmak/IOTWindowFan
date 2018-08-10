@@ -12,6 +12,7 @@
   *  1 = physical button mode
   *  2 = websockets mode
  *  
+ * After a mode change, the time is logged, and once an interval has elapsed, return to default / mode = 0
  */
 
 /*  Outside temp sensor is a DS18B20 communicating via OneWire on pin 8
@@ -20,14 +21,15 @@
 
 // ------Constants------ //
 // Input pin assignments for the buttons
-  const int butFanTop = 13;   //pin 13 turns ON top fans 
-  const int butFanBot = 12;   //pin 12 turns ON bottom fans
-  const int butOff    = 11;   //pin 11 turns OFF all fans
+  const int butFanTop = 2;   //pin 2 is top button, used to turn ON top fans 
+  const int butFanBot = 3;   //pin 3 is middle button, used to turn ON bottom fans
+  const int butOff    = 4;   //pin 4 is bottom button, turns OFF all fans
  // temperature set point
   const int setTemp = 25; 
  // Output pin assignments for fans
-  const int fanTop = 7;          //pin 7 in output for Top Fans
-  const int fanBot = 6;         //pin 6 is output for bottom fans
+  const int fanTop = 7;          //pin 7 in output for top Fan array
+  const int fanBot = 6;         //pin 6 is output for bottom Fan array
+  const int fanBox = 5;         // pin 5 is output for electronics box Fan
 
 // ------Variables------ //
 // timing variables used for timing
@@ -128,7 +130,7 @@ void loop() {
 
 // ** mode switch statement ** //
   switch(mode){
-    case 0:    //Temp mode
+    case 0:    //Default - Temp mode
 /* need to add compare outside to inside temp once I have the BME280 sensor and have done some testing
  * if(inCelsius > outCelsius && inCelsius > setTemp)
  * something like the above
@@ -152,7 +154,7 @@ void loop() {
           digitalWrite(fanTop, LOW);
           digitalWrite(fanBot, LOW);
         }
-//buton mode timer 
+//buton mode timer
     if( (currentMillis - previousButtonMillis) > hourInterval){
         //set back to default/temp mode and turn off fans
         mode = 0;
