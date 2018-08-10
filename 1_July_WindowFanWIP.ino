@@ -1,3 +1,4 @@
+// --- *** IOT Window Fan Control Sketch for Arduino *** --- ///
 /* 
  *  This sketch will control the fan state from: 
  *  a temperature difference (inside vs out)
@@ -14,7 +15,7 @@
  */
 
 /*  Outside temp sensor is a DS18B20 communicating via OneWire on pin 8
- *  See DS18bTempFunction file
+ *  See DS18bTempFunction.ino for DS18B20SetupFunction() and tempRead();
  */
 
 // ------Constants------ //
